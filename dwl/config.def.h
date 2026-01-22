@@ -60,6 +60,7 @@ static const MonitorRule monrules[] = {
 	{ "eDP-1",    0.5f,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 	*/
 	/* defaults */
+	{ "eDP-1",    0.5f,  1,      1.6,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 	{ NULL,       0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 };
 
@@ -69,6 +70,7 @@ static const struct xkb_rule_names xkb_rules = {
 	/* example:
 	.options = "ctrl:nocaps",
 	*/
+  .layout = "be",
 	.options = NULL,
 };
 
@@ -79,7 +81,7 @@ static const int repeat_delay = 600;
 static const int tap_to_click = 1;
 static const int tap_and_drag = 1;
 static const int drag_lock = 1;
-static const int natural_scrolling = 0;
+static const int natural_scrolling = 1;
 static const int disable_while_typing = 1;
 static const int left_handed = 0;
 static const int middle_button_emulation = 0;
@@ -119,7 +121,7 @@ LIBINPUT_CONFIG_TAP_MAP_LMR -- 1/2/3 finger tap maps to left/middle/right
 static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TAP_MAP_LRM;
 
 /* If you want to use the windows key for MODKEY, use WLR_MODIFIER_LOGO */
-#define MODKEY WLR_MODIFIER_ALT
+#define MODKEY WLR_MODIFIER_LOGO
 
 #define TAGKEYS(KEY,SKEY,TAG) \
 	{ MODKEY,                    KEY,            view,            {.ui = 1 << TAG} }, \
@@ -134,6 +136,28 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 static const char *termcmd[] = { "foot", NULL };
 static const char *menucmd[] = { "wmenu-run", NULL };
 
+static const char *raiseVolume[] = {
+  "sh", "-c",
+  "wpctl set-volume --limit 1.0 @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+10 slstatus",
+  NULL
+};
+
+static const char *lowerVolume[] = {
+  "sh", "-c",
+  "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+10 slstatus",
+  NULL
+};
+
+static const char *toggleMute[] = {
+  "sh", "-c",
+  "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && pkill -RTMIN+10 slstatus",
+  NULL
+};
+
+static const char *toggleMic[]   = {"wpctl","set-mute","@DEFAULT_AUDIO_SOURCE@","toggle",NULL};
+
+static const char *brightness_up[]   = { "brightnessctl", "set", "10%+", NULL };
+static const char *brightness_down[] = { "brightnessctl", "set", "10%-", NULL };
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
@@ -149,7 +173,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_Return,     zoom,           {0} },
 	{ MODKEY,                    XKB_KEY_Tab,        view,           {0} },
 	{ MODKEY,                    XKB_KEY_g,          togglegaps,     {0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_C,          killclient,     {0} },
+	{ MODKEY,                    XKB_KEY_q,          killclient,     {0} },
 	{ MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_f,          setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} },
@@ -161,19 +185,28 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_0,          view,           {.ui = ~0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_parenright, tag,            {.ui = ~0} },
 	{ MODKEY,                    XKB_KEY_comma,      focusmon,       {.i = WLR_DIRECTION_LEFT} },
-	{ MODKEY,                    XKB_KEY_period,     focusmon,       {.i = WLR_DIRECTION_RIGHT} },
+	{ MODKEY,                    XKB_KEY_semicolon,  focusmon,       {.i = WLR_DIRECTION_RIGHT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_less,       tagmon,         {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_greater,    tagmon,         {.i = WLR_DIRECTION_RIGHT} },
-	TAGKEYS(          XKB_KEY_1, XKB_KEY_exclam,                     0),
-	TAGKEYS(          XKB_KEY_2, XKB_KEY_at,                         1),
-	TAGKEYS(          XKB_KEY_3, XKB_KEY_numbersign,                 2),
-	TAGKEYS(          XKB_KEY_4, XKB_KEY_dollar,                     3),
-	TAGKEYS(          XKB_KEY_5, XKB_KEY_percent,                    4),
-	TAGKEYS(          XKB_KEY_6, XKB_KEY_asciicircum,                5),
-	TAGKEYS(          XKB_KEY_7, XKB_KEY_ampersand,                  6),
-	TAGKEYS(          XKB_KEY_8, XKB_KEY_asterisk,                   7),
-	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                  8),
+  TAGKEYS( XKB_KEY_ampersand,  XKB_KEY_1,         0 ),
+  TAGKEYS( XKB_KEY_eacute,     XKB_KEY_2,         1 ),
+  TAGKEYS( XKB_KEY_quotedbl,   XKB_KEY_3,         2 ),
+  TAGKEYS( XKB_KEY_apostrophe, XKB_KEY_4,         3 ),
+  TAGKEYS( XKB_KEY_parenleft,  XKB_KEY_5,         4 ),
+  TAGKEYS( XKB_KEY_section,    XKB_KEY_6,         5 ),
+  TAGKEYS( XKB_KEY_egrave,     XKB_KEY_7,         6 ),
+  TAGKEYS( XKB_KEY_exclam,     XKB_KEY_8,         7 ),
+  TAGKEYS( XKB_KEY_ccedilla,   XKB_KEY_9,         8 ),
+  TAGKEYS( XKB_KEY_agrave,     XKB_KEY_0,         9 ),
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} },
+
+  { 0, XKB_KEY_XF86AudioRaiseVolume, spawn, {.v = raiseVolume } },
+  { 0, XKB_KEY_XF86AudioLowerVolume, spawn, {.v = lowerVolume } },
+  { 0, XKB_KEY_XF86AudioMute,        spawn, {.v = toggleMute } },
+  { 0, XKB_KEY_XF86AudioMicMute,     spawn, {.v = toggleMic } },
+
+  { 0, XKB_KEY_XF86MonBrightnessUp,   spawn, {.v = brightness_up} },
+  { 0, XKB_KEY_XF86MonBrightnessDown, spawn, {.v = brightness_down} },
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_Terminate_Server, quit, {0} },
