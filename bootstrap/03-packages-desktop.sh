@@ -11,7 +11,7 @@ sudo pacman -S --needed --noconfirm \
 
 echo "==> Installing fonts"
 sudo pacman -S --needed --noconfirm \
-  ttf-cascadia-code-nerd \
+  ttf-cascadia-mono-nerd \
   ttf-jetbrains-mono-nerd \
   noto-fonts \
   noto-fonts-emoji \
