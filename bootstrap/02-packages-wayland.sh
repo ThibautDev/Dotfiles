@@ -10,7 +10,7 @@ sudo pacman -S --needed --noconfirm \
 
 echo "==> Installing Wayland utilities"
 sudo pacman -S --needed --noconfirm \
-  bemenu \
+  bemenu-wayland \
   wl-clipboard \
   brightnessctl \
   fcft \
