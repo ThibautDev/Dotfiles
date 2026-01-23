@@ -6,7 +6,8 @@
 local M = {}
 
 M.base46 = {
-	theme = "chadracula",
+	theme = "nord",
+  transparency = true,
 }
 
 -- M.nvdash = { load_on_startup = true }

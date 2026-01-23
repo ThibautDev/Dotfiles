@@ -3,7 +3,7 @@ set -e
 
 echo "==> Enabling system services"
 
-sudo systemctl enable --now iwd bluetooth tlp acpid udisks2
+sudo systemctl enable --now iwd bluetooth tlp acpid 
 sudo systemctl enable ly@tty1
 
 echo "==> Enabling user services"

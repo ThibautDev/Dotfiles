@@ -20,9 +20,12 @@ static int enableautoswallow = 1; /* enables autoswallowing newly spawned client
 static float swallowborder = 1.0f; /* add this multiplied by borderpx to border when a client is swallowed */
 static uint32_t colors[][3]                = {
 	/*               fg          bg          border    */
-	[SchemeNorm] = { 0xbbbbbbff, 0x222222ff, 0x444444ff },
-	[SchemeSel]  = { 0xeeeeeeff, 0x005577ff, 0x005577ff },
-	[SchemeUrg]  = { 0,          0,          0x770000ff },
+	// [SchemeNorm] = { 0xbbbbbbff, 0x222222ff, 0x444444ff },
+	// [SchemeSel]  = { 0xeeeeeeff, 0x005577ff, 0x005577ff },
+	// [SchemeUrg]  = { 0,          0,          0x770000ff },
+  [SchemeNorm] = { 0xD8DEE9FF, 0x2E3440FF, 0x4C566AFF },
+	[SchemeSel]  = { 0xECEFF4FF, 0x5E81ACFF, 0x5E81ACFF },
+	[SchemeUrg]  = { 0xECEFF4FF, 0xBF616AFF, 0xBF616AFF },
 };
 
 /* tagging - TAGCOUNT must be no greater than 31 */
