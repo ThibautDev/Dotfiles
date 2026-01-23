@@ -35,6 +35,10 @@ sudo pacman -S --needed --noconfirm \
   wireplumber \
   alsa-utils
 
+echo "==> Installing desktop utilitys"
+sudo pacman -S --needed --noconfirm \
+  xdg-utils
+
 echo "==> Installing browsers"
 sudo pacman -S --needed --noconfirm \
   firefox
