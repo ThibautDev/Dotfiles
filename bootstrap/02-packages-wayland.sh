@@ -13,7 +13,7 @@ sudo pacman -S --needed --noconfirm \
   bemenu-wayland \
   wl-clipboard \
   brightnessctl \
-  fcft \
+  tllist \
   xdg-desktop-portal \
   xdg-desktop-portal-wlr 
 
