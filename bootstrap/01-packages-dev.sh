@@ -3,7 +3,7 @@ set -e
 
 echo "==> Installing dev tools"
 sudo pacman -S --needed --noconfirm \
-  base-devel \
+  base-devel
 
 echo "==> Installing editors"
 sudo pacman -S --needed --noconfirm \

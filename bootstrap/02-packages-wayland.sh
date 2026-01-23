@@ -15,7 +15,7 @@ sudo pacman -S --needed --noconfirm \
   brightnessctl \
   fcft \
   xdg-desktop-portal \
-  xdg-desktop-portal-wlr \
+  xdg-desktop-portal-wlr 
 
 echo "==> Installing display manager"
 sudo pacman -S --needed --noconfirm \

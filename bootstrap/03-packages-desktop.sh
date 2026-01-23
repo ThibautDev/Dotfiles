@@ -31,6 +31,7 @@ echo "==> Installing PipeWire audio stack"
 sudo pacman -S --needed --noconfirm \
   pipewire \
   pipewire-alsa \
+  pipewire-pulse \
   wireplumber \
   alsa-utils
 
