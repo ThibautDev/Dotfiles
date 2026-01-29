@@ -9,10 +9,10 @@ static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will
 static const int smartgaps                 = 0;  /* 1 means no outer gap when there is only one window */
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
 static const unsigned int gappx            = 10; /* gap pixel between windows */
-static const unsigned int borderpx         = 1;  /* border pixel of windows */
+static const unsigned int borderpx         = 2;  /* border pixel of windows */
 static const int showbar                   = 1; /* 0 means no bar */
 static const int topbar                    = 1; /* 0 means bottom bar */
-static const char *fonts[]                 = {"monospace:size=10"};
+static const char *fonts[]                 = {"CaskaydiaMono Nerd Font Mono:size=11"};
 static const float rootcolor[]             = COLOR(0x000000ff);
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
@@ -20,12 +20,9 @@ static int enableautoswallow = 1; /* enables autoswallowing newly spawned client
 static float swallowborder = 1.0f; /* add this multiplied by borderpx to border when a client is swallowed */
 static uint32_t colors[][3]                = {
 	/*               fg          bg          border    */
-	// [SchemeNorm] = { 0xbbbbbbff, 0x222222ff, 0x444444ff },
-	// [SchemeSel]  = { 0xeeeeeeff, 0x005577ff, 0x005577ff },
-	// [SchemeUrg]  = { 0,          0,          0x770000ff },
-  [SchemeNorm] = { 0xD8DEE9FF, 0x2E3440FF, 0x4C566AFF },
-	[SchemeSel]  = { 0xECEFF4FF, 0x5E81ACFF, 0x5E81ACFF },
-	[SchemeUrg]  = { 0xECEFF4FF, 0xBF616AFF, 0xBF616AFF },
+	[SchemeNorm] = { 0xbbbbbbff, 0x222222ff, 0x444444ff },
+	[SchemeSel]  = { 0xeeeeeeff, 0x005577ff, 0x005577ff },
+	[SchemeUrg]  = { 0,          0,          0x770000ff },
 };
 
 /* tagging - TAGCOUNT must be no greater than 31 */
@@ -63,7 +60,7 @@ static const MonitorRule monrules[] = {
 	{ "eDP-1",    0.5f,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 	*/
 	/* defaults */
-	{ "eDP-1",    0.6f,  1,      1.6,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
+	{ "eDP-1",    0.6f,  1,      1.55,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 	{ NULL,       0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 };
 

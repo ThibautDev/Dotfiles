@@ -8,4 +8,5 @@ echo "==> Installing GPU drivers (AMD)"
 sudo pacman -S --needed --noconfirm \
   mesa \
   vulkan-radeon \
-  libva-mesa-driver
+  libva-mesa-driver \
+  lib32-vulkan-radeon

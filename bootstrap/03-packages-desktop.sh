@@ -37,7 +37,8 @@ sudo pacman -S --needed --noconfirm \
 
 echo "==> Installing desktop utilitys"
 sudo pacman -S --needed --noconfirm \
-  xdg-utils
+  xdg-utils \
+  xdg-user-dirs
 
 echo "==> Installing browsers"
 sudo pacman -S --needed --noconfirm \
